@@ -14,7 +14,7 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("./view/LoginSignupScene.fxml"));
 			Scene scene = new Scene(root);
-			primaryStage.setTitle("Hello World!");
+			primaryStage.setTitle("Effort Logger");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

@@ -22,7 +22,7 @@ public class LoginSignupController {
 
 	@FXML
 	public void loginClicked(ActionEvent event) throws IOException {
-		Stage primaryStage = (Stage) tfTitle.getScene().getWindow();
+		primaryStage = (Stage) tfTitle.getScene().getWindow();
 		Parent root = FXMLLoader.load(getClass().getResource("./../view/ChooseOptionScene.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
