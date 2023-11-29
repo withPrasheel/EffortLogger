@@ -18,7 +18,14 @@ public class LoginSignupController {
 	
 	private Stage primaryStage;
 	
-	@FXML Button viewStory;
+	@FXML
+	private Button addStory;
+	
+	@FXML 
+	private Button viewStory;
+	
+	@FXML
+	private Button getEstimate;
 	
 	
 	//Add close logic
