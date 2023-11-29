@@ -1,6 +1,11 @@
 package application.controller;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -41,6 +46,17 @@ public class LoginSignupController {
         boolean authenticated = Authentication.authenticateUser(inputUsername, inputPassword);
         if (authenticated) {
             loginStatus.setText("Login successful!");
+            primaryStage = (Stage) usernameInput.getScene().getWindow();
+    		Parent root = null;
+			try {
+				root = FXMLLoader.load(getClass().getResource("./../view/ChooseOptionScene.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		Scene scene = new Scene(root);
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
         } else {
             loginStatus.setText("Login failed. Please try again.");
         }
