@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -17,6 +18,8 @@ public class LoginSignupController {
 	
 	private Stage primaryStage;
 	
+	@FXML Button viewStory;
+	
 	
 	//Add close logic
 
@@ -28,4 +31,6 @@ public class LoginSignupController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
+	
 }
