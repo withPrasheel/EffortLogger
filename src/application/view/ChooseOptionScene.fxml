@@ -3,11 +3,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="245.0" layoutY="110.0" mnemonicParsing="false" text="Add story" />
-      <Button layoutX="248.0" layoutY="194.0" mnemonicParsing="false" text="Estimate" />
-      <Button layoutX="238.0" layoutY="153.0" mnemonicParsing="false" text="View Stories" />
+      <Button fx:id="addStory" layoutX="245.0" layoutY="110.0" mnemonicParsing="false" text="Add story" />
+      <Button fx:id="getEstimate" layoutX="248.0" layoutY="194.0" mnemonicParsing="false" text="Estimate" />
+      <Button fx:id="viewStory" layoutX="238.0" layoutY="153.0" mnemonicParsing="false" text="View Stories" />
    </children>
 </AnchorPane>
