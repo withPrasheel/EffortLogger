@@ -1,5 +1,8 @@
 package application.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -12,8 +15,36 @@ public class Authentication {
     private static final String EXCEL_FILE_PATH = "src/application/resources/user_data.csv"; // Use a CSV file instead of an Excel file
 
     private static final Map<String, String> userData = new HashMap<>();
+    
+    private static void loadUserDataFromFile() {
+        File csvFile = new File(EXCEL_FILE_PATH);
+
+        if (csvFile.exists()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+                String line;
+                boolean isFirstLine = true;
+
+                while ((line = br.readLine()) != null) {
+                    if (isFirstLine) {
+                        isFirstLine = false; // Skip the header line
+                        continue;
+                    }
+
+                    String[] parts = line.split(",");
+                    if (parts.length == 2) {
+                        String username = parts[0].trim();
+                        String hashedPassword = parts[1].trim();
+                        userData.put(username, hashedPassword);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static boolean authenticateUser(String username, String password) {
+    	loadUserDataFromFile();
         String storedHashedPassword = userData.get(username);
 
         if (storedHashedPassword != null) {
@@ -27,6 +58,10 @@ public class Authentication {
     }
 
     public static boolean registerUser(String username, String password) {
+    	loadUserDataFromFile();
+    	if (userData.containsKey(username)) {
+    		return false;
+    	}
         if (username.length() < 4 || username.length() > 32) {
             return false; // Size restriction not met
         }

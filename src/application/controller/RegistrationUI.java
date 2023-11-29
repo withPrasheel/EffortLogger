@@ -41,7 +41,7 @@ public class RegistrationUI {
             if (registered) {
                 registrationStatus.setText("Registration successful!");
             } else {
-                registrationStatus.setText("Registration failed. Please try again.");
+                registrationStatus.setText("Registration failed. Please try another username or pick stronger password");
             }
         });
 
