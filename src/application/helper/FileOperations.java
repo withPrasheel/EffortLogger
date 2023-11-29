@@ -15,7 +15,7 @@ public class FileOperations {
             File file = new File(filePath);
             if (!file.exists()) {
                 file.createNewFile();
-                writer.write("Name, Age, City\n");
+                writer.write("StoryName, StoryId, StoryPoints, EstimationTime\n");
             }
 
             for(Story story: storyList) {
@@ -29,25 +29,29 @@ public class FileOperations {
         }
     }
 	
-	public static void readCSVFile(String filePath) {
+	public static ArrayList<Story> readCSVFile(String filePath) {
+		ArrayList<Story> storyList = new ArrayList<Story>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
+            reader.readLine();		// skip header
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                for (String value : data) {
-                    System.out.print(value + "\t");
-                }
-                System.out.println(); // Move to the next line after each row
+                Story story = new Story(data[0],data[1],Integer.valueOf(data[2]),Integer.valueOf(data[3]));
+                storyList.add(story);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Issue while reading the file :"+filePath);
         }
+        return storyList;
     }
 	
 	public static void main(String args[]) {
-//		String filePath = "./src/application/resources/data.csv";
-//        writeCSVFile(filePath);
-//        readCSVFile(filePath);
+//		String filePath = "./src/application/resources/Stories.csv";
+////        writeCSVFile(filePath);
+//		ArrayList<Story> stories = readCSVFile(filePath);
+//		for(Story story:stories) {
+//			System.out.println(story.getStoryName());
+//		}
 	}
 }
