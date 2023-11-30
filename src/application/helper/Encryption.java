@@ -1,23 +1,33 @@
 package application.helper;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 
 public class Encryption {
-  public String encryptString(String input) throws NoSuchAlgorithmException {     //Method to encrypt a string given a specified hashing algorithm.
 
-        //MessageDigest works with: MD2, MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512
-        
-        MessageDigest md = MessageDigest.getInstance("SHA-256");        //MessageDigest allows us to create object to specify cryptographic hashing functions supported by MessageDigest.
-                                                                                  //Based off specified hashing method, we are able to pass a byte[] array.
+    public SecretKey generateKey() throws NoSuchAlgorithmException {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        keyGenerator.init(256); //256 bits
+        return keyGenerator.generateKey();
+    }
 
-        byte[] messageDigest = md.digest(input.getBytes());                     //Convert string input into a byte array to consistently represent the data as a byte for individual character encoding.
+    public String encryptString(String input, SecretKey key) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte[] encrypted = cipher.doFinal(input.getBytes());
+        return Base64.getEncoder().encodeToString(encrypted);
+    }
 
-        BigInteger bigInt = new BigInteger(1, messageDigest);       //Convert the string input byte array to a positive BigInteger to handle 
-                                                                           //variable-length integers produced from the more complex hashing functions that represent the hash value.
-
-        return bigInt.toString(16);                             //Return the BigInteger as a hexadecimal string because hexadecimal can be represented as 4 bit character,
-                                                                      //meaning that a byte can be represented as only 2 hexadecimal character.
+    public String decryptString(String input, SecretKey key) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, key);
+        byte[] decodedBytes = Base64.getDecoder().decode(input);
+        byte[] decrypted = cipher.doFinal(decodedBytes);
+        return new String(decrypted);
     }
 }
