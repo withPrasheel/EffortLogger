@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" />
+<AnchorPane fx:id="anchorPlane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ViewStoriesController">
+   <children>
+      <Text layoutX="79.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Story ID" />
+      <Text layoutX="191.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Story name" />
+      <Text layoutX="324.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expected Time" />
+      <Text layoutX="469.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Story Points" />
+      <TextArea id="storyIDTextArea" fx:id="storyIDTextArea" layoutX="56.0" layoutY="120.0" prefHeight="203.0" prefWidth="89.0" />
+      <TextArea id="storyNameTextArea" fx:id="storyNameTextArea" layoutX="177.0" layoutY="120.0" prefHeight="203.0" prefWidth="89.0" />
+      <TextArea id="expectedTimeTextArea" fx:id="expectedTimeTextArea" layoutX="318.0" layoutY="120.0" prefHeight="203.0" prefWidth="89.0" />
+      <TextArea id="storyPointsTextArea" fx:id="storyPointsTextArea" layoutX="456.0" layoutY="120.0" prefHeight="203.0" prefWidth="89.0" />
+      <Button layoutX="23.0" layoutY="14.0" mnemonicParsing="false" onAction="#backBtnClicked" text="&lt; Back" />
+   </children>
+</AnchorPane>
