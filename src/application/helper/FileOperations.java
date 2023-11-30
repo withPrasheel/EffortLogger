@@ -108,7 +108,10 @@ public class FileOperations {
 	        ArrayList<Story> storyList = readCSVFile(storiesFilePath);
 
 	        writeCSVFile(encryptedFilePath, storyList, key);
-	        storyList.forEach(story -> System.out.println(story.getStoryName()));
+	        storyList.forEach(story -> System.out.println("Story Name: " + story.getStoryName() +
+                    ", Story ID: " + story.getStoryId() +
+                    ", Story Points: " + story.getStoryPoints() +
+                    ", Estimation Time: " + story.getEstimationTime()));
 
 	    } catch (NoSuchAlgorithmException | IOException e) {
 	        e.printStackTrace();
