@@ -9,8 +9,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import javax.crypto.SecretKey;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
