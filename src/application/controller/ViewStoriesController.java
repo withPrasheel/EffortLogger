@@ -93,7 +93,7 @@ public class ViewStoriesController implements Initializable {
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			System.out.println("You've backed out of View Stories!")
+			System.out.println("You've backed out of View Stories!");
 		}
 	
 }
