@@ -209,9 +209,16 @@ public class EstimateSelectionSceneController implements Initializable {
 
 	    VBox root = new VBox(); // Use VBox for vertical arrangement
 	    Stage stage = new Stage();
-
-	    Text averageTimeText = new Text("Estimated Story Point: " + averageStoryPoints);
-	    Text estTime = new Text("Estimated Time: " + averageEstTime);
+	    	
+	    Text averageTimeText = new Text("");
+	    Text estTime = new Text("");
+	    if (howManySelected == 0) {
+	    	averageTimeText = new Text("Estimated Story Point is not possible! Select something ");
+		    estTime = new Text("Estimated Time is not possible! Select something ");
+	    } else {
+	    	averageTimeText = new Text("Estimated Story Point: " + averageStoryPoints);
+		    estTime = new Text("Estimated Time: " + averageEstTime);
+	    }
 
 	    root.getChildren().addAll(averageTimeText, estTime); // Add both Text nodes to VBox
 
