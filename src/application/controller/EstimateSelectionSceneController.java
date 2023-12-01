@@ -198,7 +198,6 @@ public class EstimateSelectionSceneController implements Initializable {
 	    		totalStoryPoints += story.getStoryPoints();
 	    		System.out.println("You selected 6!!!!!!");
 	    	}
-	    	System.out.println("The story here is " + story.getStoryName());
 	    	order++;
 	    }
 
