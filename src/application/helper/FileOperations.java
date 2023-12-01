@@ -20,11 +20,11 @@ public class FileOperations {
 	private static final String ENCRYPTION_KEY_PATH = "./src/application/resources/encryption.csv";
 
 	static {
-        try {
-            key = loadSecretKey();
-        } catch (NoSuchAlgorithmException | IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            key = loadSecretKey();
+//        } catch (NoSuchAlgorithmException | IOException e) {
+//            e.printStackTrace();
+//        }
     }
 	
 	private static SecretKey loadSecretKey() throws NoSuchAlgorithmException, IOException {
@@ -49,37 +49,61 @@ public class FileOperations {
 	    }
 	}
 
-	public static void writeCSVFile(String filePath, ArrayList<Story> storyList, SecretKey key) {
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-	        for (Story story : storyList) {
-	            String dataToEncrypt = story.getStoryId() + "," + story.getStoryName() + "," + story.getStoryPoints() + "," + story.getEstimationTime();
-	            String encryptedLine = encryption.encryptString(dataToEncrypt, key);
-	            writer.write(encryptedLine);
-	            writer.newLine(); 
-	        }
-	        System.out.println("Data written to the CSV file: " + filePath);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
+
+	
+	
+	public static void writeCSVFile(String filePath, ArrayList<Story> storyList) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+                writer.write("StoryName, StoryId, StoryPoints, EstimationTime\n");
+            }
+
+            for(Story story: storyList) {
+            	writer.write(story.getStoryId()+", "+story.getStoryName()+", "+story.getStoryPoints()+", "+story.getEstimationTime()+"\n");
+            }
+
+            System.out.println("Data written to the CSV file: " + filePath);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
+	public static void writeCSVFile(String filePath, ArrayList<Story> storyList, SecretKey key) {        //Writes list of encrypted stories to CSV file.
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {        //Buffered writer to write and close the writer.
+            for (Story story : storyList) {        //Iterate over each story in list.
+                String dataToEncrypt = story.getStoryId() + "," + story.getStoryName() + "," + story.getStoryPoints() + "," + story.getEstimationTime();        //Concatenate story information for CSV file.
+                String encryptedLine = encryption.encryptString(dataToEncrypt, key);        //Encrypt string.
+                writer.write(encryptedLine);        //Write encrypted string as new line in file.
+                writer.newLine();         //Move to next line.
+            }
+            System.out.println("Data written to the CSV file: " + filePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
 
 	public static ArrayList<Story> readCSVFile(String filePath) {
-		 ArrayList<Story> storyList = new ArrayList<>();
-		    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-		        String line;
-		        reader.readLine(); // Skip header line if present
-		        while ((line = reader.readLine()) != null) {
-		            String[] data = line.split(",");
-		            if (data.length >= 4) {
-		                Story story = new Story(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]));
-		                storyList.add(story);
-		            }
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		    return storyList;
-	}
+		ArrayList<Story> storyList = new ArrayList<Story>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            reader.readLine();		// skip header
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                Story story = new Story(data[0],data[1],Integer.valueOf(data[2].trim()),Integer.valueOf(data[3].trim()));
+                storyList.add(story);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Issue while reading the file :"+filePath);
+        }
+        return storyList;
+    }
+	
 	
 	public static ArrayList<Story> readEncryptedCSVFile(String filePath, SecretKey key) {
 	    ArrayList<Story> storyList = new ArrayList<>();
@@ -96,7 +120,7 @@ public class FileOperations {
 	    }
 	    return storyList;
 	}
-
+	
 	public static void main(String args[]) {
 		String storiesFilePath = "./src/application/resources/Stories.csv";
 	    String encryptedFilePath = "./src/application/resources/encryption.csv";
